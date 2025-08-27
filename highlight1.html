@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Highlight 1 - Comeback Schedule Rilis! | Monbebe 21+ Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f6f2ec;
+      font-family: 'Inter', sans-serif;
+      color: #2e2e2e;
+      margin: 0;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f2f2f2;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: #5a4634;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .toggle-btn:hover {
+      background: #c8a165;
+      transform: rotate(20deg) scale(1.1);
+    }
+
+    /* Cover */
+    .cover {
+      background-color: #5a4634;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1.2s ease forwards;
+    }
+    .cover img {
+      width: 100%;
+      height: 15rem;
+      object-fit: contain;
+    }
+
+    /* Judul Artikel */
+    .cover-title {
+      text-align: center;
+      padding: 1rem;
+      animation: fadeIn 1.5s ease forwards;
+    }
+    .cover-title h1 {
+      font-family: 'Playfair Display', serif;
+      color: #5a4634;
+      font-size: 2.4rem;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+    .cover-title p {
+      color: #c8a165;
+      font-style: italic;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Artikel Detail */
+    .full-article {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      font-family: 'Georgia', serif;
+      color: #3a2f28;
+    }
+    .full-article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #5a4634;
+    }
+    .full-article p {
+      margin-bottom: 1rem;
+      text-align: justify;
+    }
+
+    /* Tombol Back */
+    .back-link {
+      display: inline-block;
+      margin: 1rem 0 2rem;
+      text-decoration: none;
+      color: #fff;
+      background: #5a4634;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: background 0.3s ease;
+    }
+    .back-link:hover {
+      background: #c8a165;
+      color: #1e1e1e;
+    }
+
+/* Grid Foto */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* default untuk hp */
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+}
+
+.photo-grid img {
+  width: 100%;
+  aspect-ratio: 3/4;            /* tinggi otomatis, biar seragam */
+  object-fit: cover;            /* crop rapi */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.photo-grid img:hover {
+  transform: scale(1.05);
+}
+
+/* Untuk layar tablet */
+@media (min-width: 768px) {
+  .photo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* Untuk layar PC besar */
+@media (min-width: 1200px) {
+  .photo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+}
+
+    /* Komentar */
+    .comments {
+      margin-top: 2rem;
+    }
+    .comments h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+      color: #5a4634;
+    }
+    .comment-form {
+      margin-bottom: 1.5rem;
+    }
+    .comment-form input, .comment-form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .comment-form button {
+      background: #5a4634;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .comment-form button:hover {
+      background: #7a5c3f;
+    }
+    .comment-list {
+      list-style: none;
+      padding: 0;
+    }
+    .comment-list li {
+      padding: 0.8rem;
+      background: #f6f2ec;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 2rem;
+      color: #7a5c3f;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    /* Animasi */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 🌙 Dark Mode Styles */
+    body.dark {
+      background-color: #1e1e1e;
+      color: #e6e6e6;
+    }
+    body.dark .cover { background-color: #2a2a2a; }
+    body.dark .cover-title h1 { color: #e6e6e6; }
+    body.dark .cover-title p { color: #d4a373; }
+    body.dark .full-article {
+      background: rgba(40, 40, 40, 0.9);
+      color: #e6e6e6;
+    }
+    body.dark .full-article h2 { color: #f3c98b; }
+    body.dark footer { color: #d4a373; border-color: #333; }
+    body.dark .toggle-btn { background: #c8a165; color: #1e1e1e; }
+    body.dark .back-link { background: #c8a165; color: #1e1e1e; }
+    body.dark .back-link:hover { background: #f3c98b; }
+    body.dark .photo-grid img { box-shadow: 0 6px 15px rgba(255,255,255,0.1); }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle Dark Mode -->
+  <button class="toggle-btn" onclick="toggleDark()">🌙</button>
+
+  <!-- Cover -->
+  <header class="cover fade-in">
+    <img src="https://statics.berriz.in/cdn/partner/image/az/so/sz/sg/eo/ef/877056641.jpeg/dims/autorotate/on/resize/1920/quality/75/optimize" alt="Highlight 1 Image">
+  </header>
+
+  <!-- Judul -->
+  <div class="cover-title fade-in">
+    <h1>Comeback Schedule Rilis!</h1>
+    <p>✨ Highlight News Monsta X</p>
+  </div>
+
+<!-- Artikel -->
+<main>
+  <article class="full-article fade-in">
+    
+    <p>
+      MONSTA X akhirnya ngumumin jadwal buat mini album terbaru mereka: <strong>THE X</strong> 🎉.
+      Mulai awal Agustus sampai awal September, Monbebe bakal disuguhi banyak konten seru sebelum album resmi drop. 
+      Yuk cek urutannya biar nggak kelewat:
+    </p>
+
+    <!-- Jadwal Rilis -->
+    <ul>
+      <li>05 Tue → Trailer</li>
+      <li>08 Fri → Tracklist</li>
+      <li>10 Sun → Concept Photo (Unknown X Ver.)</li>
+      <li>12 Tue → Concept Photo (Hello X Ver.)</li>
+      <li>16 Sat → Release Track MV Teaser</li>
+      <li>18 Mon → Pre-release Track Release</li>
+      <li>21 Thu → Pre-release Track Performance Video</li>
+      <li>23 Sat → Concept Photo (Under X Ver.)</li>
+      <li>25 Mon → Concept Photo (X Ver.)</li>
+      <li>30 Sat → MV Teaser</li>
+      <li>31 Sun → The X View (Album Preview)</li>
+      <li>09.01 Mon, 6PM (KST) → The X Album Release</li>
+    </ul>
+
+    <!-- Grid Foto Highlight -->
+    <div class="photo-grid">
+      <img src="https://statics.berriz.in/cdn/partner/image/az/so/sz/sg/eo/ef/877056641.jpeg/dims/autorotate/on/resize/1920/quality/75/optimize" alt="Member 1">
+    </div>
+
+    <p>
+      Oh iya, di pojokan posternya juga ada clue kecil: <em>“Remix drops soon!”</em> 👀. 
+      Jadi bisa aja ada kejutan tambahan setelah semua ini.
+    </p>
+
+    <p>
+      Dan berikut ini Tracklist nya :
+    </p>
+
+    <!-- Grid Foto Highlight -->
+    <div class="photo-grid">
+      <img src="https://statics.berriz.in/cdn/partner/image/re/bl/mo/sn/ww/pi/280419076.jpg">
+    </div>
+
+    <p>
+      Nah, gimana Monbebe 😍😍 , udah dapet gambaran lagunya dan MV nya bakal kayak gimana ?? 
+langsung aja klik Link Teaser dan MV nya di Link yang udah kusematkan di Highlight yaaa. 😍😍 Saranghanda Monbebe 😍😍😍😍
+    </p>
+
+  </article>
+</main>
+
+  <!-- Mini Stats -->
+  <div class="stats">
+    <div class="stat-item">👀 <span id="views">0</span></div>
+    <div class="stat-item">❤️ <span id="likes">0</span> 
+      <button onclick="addLike()">👍</button>
+    </div>
+  </div>
+
+  <!-- Kolom Komentar -->
+  <div id="komentar" style="max-width:600px; margin:30px auto;">
+    <h3 style="font-family:Arial, sans-serif; font-size:16px; margin-bottom:10px;">💬 Komentar</h3>
+    <script src="https://utteranc.es/client.js"
+            repo="bikyun26-beep/monbebe26-blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+    <a href="index.html" class="back-link">⬅ Kembali</a>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Monbebe 21+ Blog - Untuk Monsta X Monbebe 💕
+  </footer>
+
+  <script>
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+  </script>
+
+<script>
+  let likes = 0;
+  function addLike() {
+    likes++;
+    document.getElementById("likes").textContent = likes;
+  }
+</script>
+
+<script src="darkmode.js"></script>
+</body>
+</html>

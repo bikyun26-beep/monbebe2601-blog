@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Concept 2 | Monbebe 21+ Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f6f2ec;
+      font-family: 'Inter', sans-serif;
+      color: #2e2e2e;
+      margin: 0;
+      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f2f2f2;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Komentar */
+    .comments {
+      margin-top: 2rem;
+    }
+    .comments h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+      color: #5a4634;
+    }
+    .comment-form {
+      margin-bottom: 1.5rem;
+    }
+    .comment-form input, .comment-form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .comment-form button {
+      background: #5a4634;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .comment-form button:hover {
+      background: #7a5c3f;
+    }
+    .comment-list {
+      list-style: none;
+      padding: 0;
+    }
+    .comment-list li {
+      padding: 0.8rem;
+      background: #f6f2ec;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Styling khusus konten artikel panjang */
+    .full-article {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      font-family: 'Georgia', serif;
+      color: #3a2f28;
+    }
+    .full-article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #5a4634;
+    }
+    .full-article p {
+      margin-bottom: 1rem;
+      text-align: justify;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #7a5c3f;
+    }
+
+    /* 🌙 Dark Mode */
+    body.dark {
+      background-color: #1e1e1e;
+      color: #e6e6e6;
+    }
+    body.dark article {
+      background: rgba(40, 40, 40, 0.85);
+      color: #e6e6e6;
+    }
+    body.dark article h2 { color: #f3c98b; }
+      background: #2a2a2a;
+      color: #e6e6e6;
+    }
+    body.dark .toggle-btn { background: #c8a165; color: #1e1e1e; }
+
+    /* Toggle Dark Mode Button */
+    .toggle-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: #5a4634;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .toggle-btn:hover {
+      background: #c8a165;
+      transform: rotate(20deg) scale(1.1);
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      margin: 1rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #5a4634;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      color: #5a4634;
+      margin: 1rem 0;
+    }
+    body.dark h1 {
+      color: #f3c98b;
+    }
+
+    /* Accordion */
+    .accordion {
+      max-width: 950px;
+      margin: 2rem auto;
+    }
+    .accordion-item {
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .accordion-header {
+      background: #5a4634;
+      color: white;
+      padding: 1rem;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      transition: background 0.3s ease;
+    }
+    .accordion-header:hover {
+      background: #c8a165;
+      color: #1e1e1e;
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      background: #fff;
+      transition: max-height 0.4s ease;
+    }
+    .accordion-item.active .accordion-content {
+      max-height: 3000px;
+    }
+    body.dark .accordion-header {
+      background: #c8a165;
+      color: #1e1e1e;
+    }
+    body.dark .accordion-content {
+      background: #2a2a2a;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      padding: 1rem 2rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle Dark Mode -->
+  <button class="toggle-btn" onclick="toggleDark()">🌙</button>
+
+  <h1>Photo Concept 2 - HELLO X VER.</h1>
+
+  <!-- Artikel -->
+  <main>
+    <article class="full-article fade-in">
+      <h2>Tentang Konsep</h2>
+      <p>
+        Konsep HELLO X mengusung tema “rayakan bersama”, dengan atmosfer kumpul-kumpul yang terasa hangat dan penuh ikatan.
+        Dengan hadirnya konsep ini, Monsta X ingin berbagi kegembiraan 10 tahun karier mereka dalam suasana yang penuh canda, kebersamaan, dan kenyamanan.
+      </p>
+      <p>
+        Tampak berkharisma dengan setelan jas klasik berpadu dengan latar pesta bergaya vintage, menciptakan vibe dandy yang hangat.
+        Interaksi santai dan penggunaan wig warna cerah menonjolkan sisi lucu dan hangat antar member sekaligus memberi kesan bahwa mereka tidak menganggap segalanya terlalu serius bahkan dalam momen yang elegan sekalipun, tetap ada ruang untuk bersenang-senang.
+      </p>
+      <p>
+       Bisa dibilang , konsep HELLO X ini merupakan konsep pesta sekaligus personal karena berpadu dengan tema party anniversary yang formal tapi tetap penuh hati dan karakter.
+      </p>
+    </article>
+  </main>
+
+  <!-- Accordion -->
+  <div class="accordion">
+    <!-- SHOWNU -->
+    <div class="accordion-item">
+      <div class="accordion-header">SHOWNU</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/re/mo/dv/dx/st/ey/177517147.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rz/mo/ua/tn/sr/bp/694642858.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rz/mo/tr/dn/mv/so/15174598.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rz/bl/ur/dn/ba/mn/1194924948.jpeg">
+        </div>
+      </div>
+    </div>
+    <!-- MINHYUK -->
+    <div class="accordion-item">
+      <div class="accordion-header">MINHYUK</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/ae/so/ur/dn/bz/vo/765989240.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rj/ml/dv/tn/bz/wd/1430332261.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rj/so/ua/ux/sz/wq/221482754.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/az/bo/ta/tx/bz/wz/1010548440.jpeg">
+        </div>
+      </div>
+    </div>
+    <!-- KIHYUN -->
+    <div class="accordion-item">
+      <div class="accordion-header">KIHYUN</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/rj/bl/tr/tn/bo/sn/492474059.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rz/bl/dr/tn/mo/dj/1767897264.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/re/bl/dr/tx/bl/do/1254411872.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/re/so/ur/dx/bl/vm/1046639541.jpeg">
+        </div>
+      </div>
+    </div>
+    <!-- HYUNGWON -->
+    <div class="accordion-item">
+      <div class="accordion-header">HYUNGWON</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/ae/so/da/ux/sx/po/914449368.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/vz/ml/tr/un/bx/jz/994084640.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/az/bl/dv/dx/mn/zn/1221221059.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rj/sl/tv/ux/mx/zx/1330167649.jpeg">
+        </div>
+      </div>
+    </div>
+    <!-- JOOHEON -->
+    <div class="accordion-item">
+      <div class="accordion-header">JOOHEON</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/az/bo/da/un/da/bi/784950037.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/az/bl/uv/un/ur/td/1973273091.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/ve/mo/dv/dx/dr/dp/512650652.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/az/bo/dr/dx/tv/dq/711636848.jpeg">
+        </div>
+      </div>
+    </div>
+    <!-- I.M -->
+    <div class="accordion-item">
+      <div class="accordion-header">I.M</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/vj/mo/tv/ux/tq/pr/148222933.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/ae/sl/da/tn/up/pk/653943068.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/vz/sl/da/dx/dq/zt/1228425297.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rz/so/da/tx/uq/zc/692108268.jpeg">
+        </div>
+      </div>
+    </div>
+    <!-- GROUP -->
+    <div class="accordion-item">
+      <div class="accordion-header">GROUP</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/re/mo/tr/ux/ul/ub/1835110590.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/vz/ml/ta/dn/dl/th/931117062.jpeg">
+        </div>
+      </div>
+    </div>
+    <!-- UNIT -->
+    <div class="accordion-item">
+      <div class="accordion-header">UNIT</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/ve/bl/ur/dx/ti/bb/891246374.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/aj/mo/ta/tx/di/dv/2028860277.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/ae/bo/dr/dn/tf/ta/219201986.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/rj/so/tr/ux/ui/ul/1421371623.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/ve/ml/ur/tn/tf/uk/467525364.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/vz/ml/dr/ux/ui/mp/447811605.jpeg">
+        </div>
+      </div>
+    </div>
+    <!-- HELLO X -->
+    <div class="accordion-item">
+      <div class="accordion-header">HELLO X</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/media/image/vj/so/ua/dx/ux/si/2006729.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/aj/bo/dr/ux/dx/bx/856388226.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/az/so/dv/tn/tn/tq/1909481979.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/az/ml/tv/dn/un/uo/1858461253.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/vj/ml/tr/un/dx/ra/1466363565.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/ae/mo/da/tx/un/ap/1170148437.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/vj/bo/tv/dx/vs/ta/2140285639.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/vj/bl/dr/ux/vs/uz/949838536.jpeg">
+                <img src="https://statics.berriz.in/cdn/media/image/vj/mo/ua/dn/vb/dx/136625171.jpeg">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mini Stats -->
+  <div class="stats">
+    <div class="stat-item">👀 <span id="views">0</span></div>
+    <div class="stat-item">❤️ <span id="likes">0</span> 
+      <button onclick="addLike()">👍</button>
+    </div>
+  </div>
+
+  <!-- Kolom Komentar -->
+  <div id="komentar" style="max-width:600px; margin:30px auto;">
+    <h3 style="font-family:Arial, sans-serif; font-size:16px; margin-bottom:10px;">💬 Komentar</h3>
+    <script src="https://utteranc.es/client.js"
+            repo="bikyun26-beep/monbebe26-blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+  <a href="highlight2.html" class="back-link">⬅ Kembali</a>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Monbebe 21+ Blog - Untuk Monsta X Monbebe 💕
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+
+    // Accordion auto-close
+    document.querySelectorAll(".accordion-header").forEach(header => {
+      header.addEventListener("click", () => {
+        const item = header.parentElement;
+        document.querySelectorAll(".accordion-item").forEach(i => {
+          if (i !== item) i.classList.remove("active");
+        });
+        item.classList.toggle("active");
+      });
+    });
+  </script>
+
+<script>
+  let likes = 0;
+  function addLike() {
+    likes++;
+    document.getElementById("likes").textContent = likes;
+  }
+</script>
+
+<script>
+  const toggleBtn = document.querySelector(".theme-toggle");
+
+  // Saat halaman dibuka, cek preferensi user di localStorage
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+  }
+
+  // Event klik tombol
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+      localStorage.setItem("theme", "dark");
+    } else {
+      localStorage.setItem("theme", "light");
+    }
+  });
+</script>
+
+<script src="darkmode.js"></script>
+</body>
+</html>

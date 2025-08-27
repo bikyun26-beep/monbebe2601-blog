@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monbebe 21+ Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f6f2ec;
+      font-family: 'Inter', sans-serif;
+      color: #2e2e2e;
+      margin: 0;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    .stats {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f2f2f2;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Komentar */
+    .comments {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .comments h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+      color: #5a4634;
+    }
+    .comment-form input, .comment-form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .comment-form button {
+      background: #5a4634;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .comment-form button:hover {
+      background: #7a5c3f;
+    }
+    .comment-list {
+      list-style: none;
+      padding: 0;
+    }
+    .comment-list li {
+      padding: 0.8rem;
+      background: #f6f2ec;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: #5a4634;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .toggle-btn:hover {
+      background: #c8a165;
+      transform: rotate(20deg) scale(1.1);
+    }
+
+    /* Artikel */
+    .full-article {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      font-family: 'Georgia', serif;
+      color: #3a2f28;
+    }
+    .full-article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #5a4634;
+    }
+    .full-article p {
+      margin-bottom: 1rem;
+      text-align: justify;
+    }
+
+    /* Animasi fade-in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cover */
+    .cover {
+      background-color: #5a4634;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1.2s ease forwards;
+    }
+    .cover img {
+      width: 100%;
+      height: 15rem;
+      object-fit: contain;
+    }
+
+    /* Judul */
+    .cover-title {
+      text-align: center;
+      padding: 1rem;
+      animation: fadeIn 1.5s ease forwards;
+    }
+    .cover-title h1 {
+      font-family: 'Playfair Display', serif;
+      color: #5a4634;
+      font-size: 2.4rem;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+    .cover-title p {
+      color: #c8a165;
+      font-style: italic;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Highlight */
+    .highlight {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+    }
+    .highlight h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #5a4634;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .highlight-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+    }
+    .highlight-card {
+      display: block;
+      text-decoration: none;
+      background: white;
+      padding: 1rem;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .highlight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .highlight-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+    }
+    .highlight-card h3 {
+      margin: 0.3rem 0;
+      font-size: 1.1rem;
+      color: #5a4634;
+    }
+    .highlight-card p {
+      font-size: 0.9rem;
+      color: #3a2f28;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 2rem;
+      color: #7a5c3f;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    /* Dark Mode */
+    body.dark {
+      background-color: #1e1e1e;
+      color: #e6e6e6;
+    }
+    body.dark .cover { background-color: #2a2a2a; }
+    body.dark .cover-title h1 { color: #e6e6e6; }
+    body.dark .cover-title p { color: #d4a373; }
+    body.dark article {
+      background: rgba(40, 40, 40, 0.85);
+      color: #e6e6e6;
+    }
+    body.dark article h2 { color: #f3c98b; }
+    body.dark .highlight-card {
+      background: #2a2a2a;
+      color: #e6e6e6;
+    }
+    body.dark .highlight-card h3 { color: #f3c98b; }
+    body.dark .highlight-card p { color: #d4a373; }
+    body.dark footer { color: #d4a373; border-color: #333; }
+    body.dark .toggle-btn { background: #c8a165; color: #1e1e1e; }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle Dark Mode -->
+  <button class="toggle-btn" onclick="toggleDark()">🌙</button>
+
+  <!-- Cover -->
+  <header class="cover fade-in">
+    <img src="https://images.unsplash.com/photo-1755234710097-17621346ed9f?q=80&w=1200&auto=format&fit=contain" alt="Cover Image">
+  </header>
+
+  <!-- Judul -->
+  <div class="cover-title fade-in">
+    <h1>Monbebe 21+ Blog</h1>
+    <p>사랑한다 몬스타엑스</p>
+  </div>
+
+  <!-- Highlight -->
+  <section class="highlight fade-in">
+    <h2>✨ HIGHLIGHT NEWS</h2>
+    <div class="highlight-cards">
+      <a href="highlight1.html" class="highlight-card">
+        <img src="https://statics.berriz.in/cdn/partner/image/az/so/sz/sg/eo/ef/877056641.jpeg?w=800&q=80" alt="Highlight 1">
+        <h3>Comeback Schedule & Tracklist Release!!</h3>
+        <p>Monsta X resmi merilis schedule & Tracklist comeback untuk mini album terbaru mereka. Check it out Monbebe! 🚀</p>
+      </a>
+      <a href="highlight2.html" class="highlight-card">
+        <img src="https://statics.berriz.in/cdn/media/image/vz/bl/ml/vc/av/mv/809335894.jpeg" alt="Highlight 2">
+        <h3>Photo Concept Album</h3>
+        <p>Setiap member tampil dengan visual unik sesuai dengan tema album. Monbebe wajib lihat nih 😍</p>
+      </a>
+      <a href="highlight3.html" class="highlight-card">
+        <img src="https://images.unsplash.com/photo-1755234710097-17621346ed9f" alt="Highlight 3">
+        <h3>Pre-release, MV & Teaser</h3>
+        <p>Monsta X kembali dengan konsep yang lebih kuat, penuh energi, dan visual luar biasa. Simak Video lengkapnya💕</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Artikel -->
+  <main>
+    <article class="full-article fade-in">
+      <h2>Annyeonghaseyo Monbebe 🌙🌹🌹</h2>
+      <p>
+        Selamat datang di Monbebe 21+ Blog 💕
+        Tahun 2025 menjadi momen istimewa bagi MONSTA X dan seluruh Monbebe di dunia. Dengan mini album terbaru mereka, “THE X”, perjalanan menuju comeback kali ini penuh kejutan, karya, dan energi yang semakin matang.
+      </p>
+      <p>
+        Website ini hadir bukan hanya sebagai tempat berbagi berita dan highlight, tapi juga sebagai sarana media layaknya majalah online — yang merangkum setiap detail dari teaser, concept photo, hingga rilisan resmi menjelang hari besar pada 1 September 2025 🗓️.
+        Bagi Monbebe setia, mari kita rayakan dan dukung bersama setiap langkah MONSTA X. Dan bagi yang baru mengenal mereka, semoga laman ini bisa menjadi pintu masuk yang elegan untuk merasakan pesona musik, cerita, dan semangat mereka.
+      </p>
+      <p>
+        Karena lebih dari sekadar menunggu comeback, perjalanan ini adalah perayaan komunitas, cinta, dan dedikasi — sesuatu yang layak kita nikmati bersama, halaman demi halaman ✨.
+        Terima kasih sudah mampir, Saranghanda Monbebe 🥰🥰 Selamat membaca dan menikmati kontennya. 🌙🌹🌹
+      </p>
+    </article>
+  </main>
+
+  <!-- Mini Stats -->
+  <div class="stats">
+    <div class="stat-item">👀 <span id="views">0</span></div>
+    <div class="stat-item">❤️ <span id="likes">0</span> 
+      <button id="likeBtn">👍</button>
+    </div>
+  </div>
+
+  <!-- Komentar -->
+  <div class="comments">
+    <h2>💬 Komentar</h2>
+    <form id="commentForm" class="comment-form">
+      <input type="text" id="name" placeholder="Nama kamu" required>
+      <textarea id="message" placeholder="Tulis komentar..." required></textarea>
+      <button type="submit">Kirim</button>
+    </form>
+    <ul id="commentList" class="comment-list"></ul>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Monbebe 21+ Blog - Untuk Monsta X Monbebe 💕
+  </footer>
+
+  <!-- Script -->
+  <script>
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+
+    // Views counter
+    let views = localStorage.getItem("views") || 0;
+    views++;
+    localStorage.setItem("views", views);
+    document.getElementById("views").textContent = views;
+
+    // Like button
+    let likes = 0;
+    document.getElementById("likeBtn").addEventListener("click", () => {
+      likes++;
+      document.getElementById("likes").textContent = likes;
+    });
+  </script>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+    // Config Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNmtAUCCeD_w0UKdDK_Tigw0cR5Yzkt7A",
+      authDomain: "monbebe2601-blog.firebaseapp.com",
+      databaseURL: "https://monbebe2601-blog-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "monbebe2601-blog",
+      storageBucket: "monbebe2601-blog.firebasestorage.app",
+      messagingSenderId: "280735685491",
+      appId: "1:280735685491:web:efcc4278f87a5fcb71c306"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Komentar
+    const commentForm = document.getElementById("commentForm");
+    const commentList = document.getElementById("commentList");
+    const commentsRef = ref(db, "comments");
+
+    commentForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+
+      push(commentsRef, {
+        name,
+        message,
+        timestamp: Date.now()
+      });
+
+      commentForm.reset();
+    });
+
+    onValue(commentsRef, (snapshot) => {
+      commentList.innerHTML = "";
+      snapshot.forEach((child) => {
+        const data = child.val();
+        const li = document.createElement("li");
+        li.textContent = `${data.name}: ${data.message}`;
+        commentList.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>

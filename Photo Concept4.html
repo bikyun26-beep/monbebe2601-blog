@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Concept 4 | Monbebe 21+ Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f6f2ec;
+      font-family: 'Inter', sans-serif;
+      color: #2e2e2e;
+      margin: 0;
+      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f2f2f2;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Komentar */
+    .comments {
+      margin-top: 2rem;
+    }
+    .comments h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+      color: #5a4634;
+    }
+    .comment-form {
+      margin-bottom: 1.5rem;
+    }
+    .comment-form input, .comment-form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .comment-form button {
+      background: #5a4634;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .comment-form button:hover {
+      background: #7a5c3f;
+    }
+    .comment-list {
+      list-style: none;
+      padding: 0;
+    }
+    .comment-list li {
+      padding: 0.8rem;
+      background: #f6f2ec;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Styling khusus konten artikel panjang */
+    .full-article {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      font-family: 'Georgia', serif;
+      color: #3a2f28;
+    }
+    .full-article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #5a4634;
+    }
+    .full-article p {
+      margin-bottom: 1rem;
+      text-align: justify;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #7a5c3f;
+    }
+
+    /* 🌙 Dark Mode */
+    body.dark {
+      background-color: #1e1e1e;
+      color: #e6e6e6;
+    }
+    body.dark article {
+      background: rgba(40, 40, 40, 0.85);
+      color: #e6e6e6;
+    }
+    body.dark article h2 { color: #f3c98b; }
+      background: #2a2a2a;
+      color: #e6e6e6;
+    }
+    body.dark .toggle-btn { background: #c8a165; color: #1e1e1e; }
+
+    /* Toggle Dark Mode Button */
+    .toggle-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: #5a4634;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .toggle-btn:hover {
+      background: #c8a165;
+      transform: rotate(20deg) scale(1.1);
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      margin: 1rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #5a4634;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      color: #5a4634;
+      margin: 1rem 0;
+    }
+    body.dark h1 {
+      color: #f3c98b;
+    }
+
+    /* Accordion */
+    .accordion {
+      max-width: 950px;
+      margin: 2rem auto;
+    }
+    .accordion-item {
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .accordion-header {
+      background: #5a4634;
+      color: white;
+      padding: 1rem;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      transition: background 0.3s ease;
+    }
+    .accordion-header:hover {
+      background: #c8a165;
+      color: #1e1e1e;
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      background: #fff;
+      transition: max-height 0.4s ease;
+    }
+    .accordion-item.active .accordion-content {
+      max-height: 3000px;
+    }
+    body.dark .accordion-header {
+      background: #c8a165;
+      color: #1e1e1e;
+    }
+    body.dark .accordion-content {
+      background: #2a2a2a;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      padding: 1rem 2rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle Dark Mode -->
+  <button class="toggle-btn" onclick="toggleDark()">🌙</button>
+
+  <h1>Photo Concept 4 - XX DATE VER.</h1>
+
+  <!-- Artikel -->
+  <main>
+    <article class="full-article fade-in">
+      <h2>Tentang Konsep</h2>
+      <p>
+        Konsep XX DATE hadir dengan tone warna yang cerah, natural & klasik. Menggunakan latar arsitektur klasik dan lampu besar menyiratkan suasana yang timeless seolah mendekati nostalgia modern tetapi tetap elegant.
+        Dengan tampilan Outfit casual-formal yang natural namun penuh selera menunjukkan sisi dewasa, rileks, dan ramah dari Monsta X—menghadirkan kesan bahwa mereka kini lebih tenang tapi tetap menawan. 
+      </p>
+      <p>
+        Disini mereka pakai kemeja simple, jaket santai, atau outfit yang rapi tapi nggak terlalu resmi. Itu vibe-nya persis kaya “pacar ngajak jalan sore,” bukan gaya idol di atas panggung.
+        Setting outdoor dengan lampu besar dan motor → ada beberapa foto yang pakai motor klasik sebagai prop. Itu langsung ngasih nuansa dating scene banget—kayak lagi nungguin kamu buat diajak naik motor, jalan keliling kota, atau nongkrong di spot estetik.
+        Vibes “boyfriend material” kerasa kuat banget di konsep ini. 🥰
+      </p>
+      <p>
+       Gestur & ekspresinya kalau dibanding konsep lain ekspresi mereka di XX Ver. lebih lembut, tatapan tenang, senyum tipis—bener-bener kayak lagi eye contact sama kamu pas ngedate. Ini bikin vibes intimate dan personal makin kerasa kayak kamu “satu-satunya yang diajak”. 😍😍
+       Selain itu, versi XX DATE ini juga terasa seperti potret reflektif dari Monsta yang ingin mengekspresikan diri dengan kedewasaan yang tenang, tanpa kehilangan sisi estetik dan kehangatan sebagai seorang grup. Tidak terlalu dramatis tapi menyimpan cerita, seakan menangkap "waktu berhenti sebentar" di tengah kesibukan.😎
+      </p>
+    </article>
+  </main>
+
+  <!-- Accordion -->
+  <div class="accordion">
+    <!-- SHOWNU -->
+    <div class="accordion-item">
+      <div class="accordion-header">SHOWNU</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/partner/image/ve/ml/aj/mi/vj/pl/813647992.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/az/bo/re/si/vj/qo/1089075840.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/rz/bl/ae/mf/rz/po/971810066.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/az/so/ae/mi/rz/ql/1029494178.jpg">
+        </div>
+      </div>
+    </div>
+    <!-- MINHYUK -->
+    <div class="accordion-item">
+      <div class="accordion-header">MINHYUK</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/partner/image/vz/mo/ae/sf/af/ps/1445179237.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/ae/sl/vz/mi/rf/qm/1492793126.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/ve/so/ae/bf/rf/pb/802610914.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/re/bl/az/bi/af/pm/940722186.jpg">
+        </div>
+      </div>
+    </div>
+    <!-- KIHYUN -->
+    <div class="accordion-item">
+      <div class="accordion-header">KIHYUN</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/partner/image/re/sl/vj/si/vo/su/646914818.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/aj/bo/ae/bi/ro/mm/71324585.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/vz/bl/rz/bi/al/sd/601793203.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/ae/so/aj/bi/vo/sb/2069935840.jpg">
+        </div>
+      </div>
+    </div>
+    <!-- HYUNGWON -->
+    <div class="accordion-item">
+      <div class="accordion-header">HYUNGWON</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/partner/image/vj/so/vz/si/ro/qn/1545146979.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/vj/bl/vz/sf/rl/px/1774349790.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/re/ml/rj/sf/rl/jb/2060267929.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/aj/bo/vj/bf/vo/qn/1351622416.jpg">
+        </div>
+      </div>
+    </div>
+    <!-- JOOHEON -->
+    <div class="accordion-item">
+      <div class="accordion-header">JOOHEON</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/partner/image/ve/mo/vz/mf/ht/wd/5485100.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/rj/mo/ae/mf/hu/wt/2020532059.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/re/sl/vz/sf/hu/hu/1934352551.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/ve/mo/re/bi/hu/cs/1595994148.jpg">
+        </div>
+      </div>
+    </div>
+    <!-- I.M -->
+    <div class="accordion-item">
+      <div class="accordion-header">I.M</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/partner/image/az/so/ae/sf/hv/uu/1790532228.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/re/sl/aj/sf/wa/du/1708095766.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/rz/so/re/sf/ha/ut/1813087987.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/az/bl/aj/mf/wa/dd/1767672319.jpg">
+        </div>
+      </div>
+    </div>
+    <!-- GROUP -->
+    <div class="accordion-item">
+      <div class="accordion-header">GROUP</div>
+      <div class="accordion-content">
+        <div class="gallery">
+                <img src="https://statics.berriz.in/cdn/partner/image/ae/bl/ve/bf/wr/pw/1175217885.jpg">
+                <img src="https://statics.berriz.in/cdn/partner/image/aj/ml/vj/bf/cr/pc/1145466732.jpg">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mini Stats -->
+  <div class="stats">
+    <div class="stat-item">👀 <span id="views">0</span></div>
+    <div class="stat-item">❤️ <span id="likes">0</span> 
+      <button onclick="addLike()">👍</button>
+    </div>
+  </div>
+
+  <!-- Kolom Komentar -->
+  <div id="komentar" style="max-width:600px; margin:30px auto;">
+    <h3 style="font-family:Arial, sans-serif; font-size:16px; margin-bottom:10px;">💬 Komentar</h3>
+    <script src="https://utteranc.es/client.js"
+            repo="bikyun26-beep/monbebe26-blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+  <a href="highlight2.html" class="back-link">⬅ Kembali</a>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Monbebe 21+ Blog - Untuk Monsta X Monbebe 💕
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+
+    // Accordion auto-close
+    document.querySelectorAll(".accordion-header").forEach(header => {
+      header.addEventListener("click", () => {
+        const item = header.parentElement;
+        document.querySelectorAll(".accordion-item").forEach(i => {
+          if (i !== item) i.classList.remove("active");
+        });
+        item.classList.toggle("active");
+      });
+    });
+  </script>
+
+<script>
+  let likes = 0;
+  function addLike() {
+    likes++;
+    document.getElementById("likes").textContent = likes;
+  }
+</script>
+
+<script src="darkmode.js"></script>
+</body>
+</html>

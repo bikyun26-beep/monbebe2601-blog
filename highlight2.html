@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Highlight 2 - Photo Concept | Monbebe 21+ Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f6f2ec;
+      font-family: 'Inter', sans-serif;
+      color: #2e2e2e;
+      margin: 0;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f2f2f2;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: #5a4634;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background: #c8a165;
+      transform: rotate(20deg) scale(1.1);
+    }
+
+    /* Cover */
+    .cover img {
+      width: 100%;
+      height: 15rem;
+      object-fit: contain;
+    }
+    .cover-title {
+      text-align: center;
+      padding: 1rem;
+    }
+    .cover-title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin: 0;
+      color: #5a4634;
+      letter-spacing: 1px;
+    }
+    .cover-title p {
+      font-style: italic;
+      color: #c8a165;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Artikel */
+    .full-article {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      font-family: 'Georgia', serif;
+      color: #3a2f28;
+    }
+    .full-article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #5a4634;
+    }
+    .full-article p {
+      margin-bottom: 1rem;
+      text-align: justify;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #5a4634;
+      color: white;
+    }
+
+    /* 🔥 Highlight Section */
+    .highlight {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+    }
+    .highlight h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #5a4634;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .highlight-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+    }
+    .highlight-card {
+      display: block;
+      text-decoration: none;
+      background: white;
+      padding: 1rem;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .highlight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .highlight-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+    }
+    .highlight-card h3 {
+      margin: 0.3rem 0;
+      font-size: 1.1rem;
+      color: #5a4634;
+    }
+    .highlight-card p {
+      font-size: 0.9rem;
+      color: #3a2f28;
+    }
+
+    /* Animasi fade-in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Komentar */
+    .comments {
+      margin-top: 2rem;
+    }
+    .comments h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+      color: #5a4634;
+    }
+    .comment-form {
+      margin-bottom: 1.5rem;
+    }
+    .comment-form input, .comment-form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .comment-form button {
+      background: #5a4634;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .comment-form button:hover {
+      background: #7a5c3f;
+    }
+    .comment-list {
+      list-style: none;
+      padding: 0;
+    }
+    .comment-list li {
+      padding: 0.8rem;
+      background: #f6f2ec;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #7a5c3f;
+    }
+
+    /* 🌙 Dark Mode Styles */
+    body.dark {
+      background-color: #1e1e1e;
+      color: #e6e6e6;
+    }
+    body.dark .cover { background-color: #2a2a2a; }
+    body.dark .cover-title h1 { color: #e6e6e6; }
+    body.dark .cover-title p { color: #d4a373; }
+    body.dark article {
+      background: rgba(40, 40, 40, 0.85);
+      color: #e6e6e6;
+    }
+    body.dark article h2 { color: #f3c98b; }
+    body.dark .highlight-card {
+      background: #2a2a2a;
+      color: #e6e6e6;
+    }
+    body.dark .highlight-card h3 { color: #f3c98b; }
+    body.dark .highlight-card p { color: #d4a373; }
+    body.dark footer { color: #d4a373; border-color: #333; }
+    body.dark .toggle-btn { background: #c8a165; color: #1e1e1e; }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle Dark Mode -->
+  <button class="toggle-btn" onclick="toggleDark()">🌙</button>
+
+  <!-- Cover -->
+  <header class="cover">
+    <img src="https://statics.berriz.in/cdn/media/image/vz/bl/ml/vc/av/mv/809335894.jpeg">
+  </header>
+
+  <!-- Judul -->
+  <div class="cover-title">
+    <h1>Photo Concept Album</h1>
+    <p>✨ All Member Monsta X Gallery</p>
+  </div>
+
+  <!-- Artikel -->
+  <main>
+    <article class="full-article">
+
+      <!-- 🔥 Highlight Section -->
+      <section class="highlight fade-in">
+        <h2>✨ Photo Concept Ver.</h2>
+        <div class="highlight-cards">
+          <a href="Photo Concept1.html" class="highlight-card">
+            <img src="https://statics.berriz.in/cdn/media/image/vz/bl/ml/vc/av/mv/809335894.jpeg">
+            <h3>UNKNOWN VER.</h3>
+            <p>
+              Gabungan suasana hutan, hitam-putih, dan bubble gum menciptakan atmosfer seperti melangkah ke lorong waktu, antara larut dalam nostalgia dan semangat revolusi. Foto ini tidak hanya estetis namun juga penuh cerita, membangkitkan rasa ingin tahu—“apa yang akan datang selanjutnya?” 
+              Sebagai versi “UNKNOWN X”, ia sukses menyampaikan tema misteri, kedewasaan, dan energi baru yang kuat.
+            </p>
+          </a>
+          <a href="Photo Concept2.html" class="highlight-card">
+            <img src="https://statics.berriz.in/cdn/media/image/re/mo/tr/ux/ul/ub/1835110590.jpeg">
+            <h3>HELLO X VER.</h3>
+            <p>
+              Monsta X bergaya dengan setelan jas berwarna berbeda—menampilkan nuansa dandy klasik yang elegan namun penuh kehangatan. Setingnya mengambil tema party yang bernuansa antique, lengkap dengan dekorasi dan props yang menambah kesan nostalgia dan glamor.
+              Ada twist yang playful juga, lho! Foto after-party di ruang karaoke memperlihatkan interaksi yang natural antar member—seperti obrolan santai, tawa, dan kebersamaan yang ringan tapi berkelas.
+            </p>
+          </a>
+          <a href="Photo Concept3.html" class="highlight-card">
+            <img src="https://statics.berriz.in/cdn/media/image/aj/mo/aw/am/jm/dg/1495847436.jpeg">
+            <h3>UNDERDOG X VER.</h3>
+            <p>Dengan konsep visual yang mengedepankan nuansa free-spirited sekaligus intens dan penuh energi.
+               Menampilkan para member dengan gaya santai—busana longgar, rambut sengaja ditata terlihat agak berantakan—memberi kesan “anjing yang berubah jadi manusia” yang penuh hasrat dan jiwa bebas
+               Figur anjing raksasa yang cenderung surreal seolah menjadi pendamping visual para member dan memperkuat konsep underdog mewakili insting, keberanian yang tersembunyi, atau transformasi dari yang dianggap rendah menjadi kuat dalam diam.
+               Potret grup juga menangkap dinamika sinergis mereka—karisma eksplosif yang tumpah dalam setiap pose—memancarkan semangat juang dan kekompakan yang mendalam.
+            </p>
+          </a>
+          <a href="Photo Concept4.html" class="highlight-card">
+            <img src="https://statics.berriz.in/cdn/partner/image/ae/bl/ve/bf/wr/pw/1175217885.jpg">
+            <h3>XX DATE VER.</h3>
+            <p>Dengan setting outdoor dengan sentuhan cerah dan ceria: langit cerah, latar bangunan bergaya klasik, pipa lampu besar membuat keseluruhan komposisi terasa ringan dan elegan.
+               Gaya berpakaian member cenderung santai namun stylish seperti casual-formal yang effortless dan sifatnya hangat, mengingatkan pada keseharian yang ramah namun tetap estetik.
+               Konsep ini memberikan kesan fresh, transparan, dan sedikit nostalgik, rasanya seperti Monbebe diajak nge-date. 💕</p>
+          </a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <!-- Mini Stats -->
+  <div class="stats">
+    <div class="stat-item">👀 <span id="views">0</span></div>
+    <div class="stat-item">❤️ <span id="likes">0</span> 
+      <button onclick="addLike()">👍</button>
+    </div>
+  </div>
+
+  <!-- Kolom Komentar -->
+  <div id="komentar" style="max-width:600px; margin:30px auto;">
+    <h3 style="font-family:Arial, sans-serif; font-size:16px; margin-bottom:10px;">💬 Komentar</h3>
+    <script src="https://utteranc.es/client.js"
+            repo="bikyun26-beep/monbebe26-blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+      <a href="index.html" class="back-link">⬅ Kembali</a>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Monbebe 21+ Blog - Untuk Monsta X Monbebe 💕
+  </footer>
+
+  <script>
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+  </script>
+
+<script>
+  let likes = 0;
+  function addLike() {
+    likes++;
+    document.getElementById("likes").textContent = likes;
+  }
+</script>
+
+<script src="darkmode.js"></script>
+</body>
+</html>
