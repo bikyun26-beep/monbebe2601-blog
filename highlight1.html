@@ -401,62 +401,104 @@ langsung aja klik Link Teaser dan MV nya di Link yang udah kusematkan di Highlig
     localStorage.setItem("views", views);
     document.getElementById("views").textContent = views;
 
-    // Like button
-    let likes = 0;
-    document.getElementById("likeBtn").addEventListener("click", () => {
-      likes++;
-      document.getElementById("likes").textContent = likes;
+<!-- Like button -->
+<div class="stat-item">❤️ <span id="likes">0</span> 
+  <button id="likeBtn">👍</button>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+  // Config Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyDNmtAUCCeD_w0UKdDK_Tigw0cR5Yzkt7A",
+    authDomain: "monbebe2601-blog.firebaseapp.com",
+    databaseURL: "https://monbebe2601-blog-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "monbebe2601-blog",
+    storageBucket: "monbebe2601-blog.firebasestorage.app",
+    messagingSenderId: "280735685491",
+    appId: "1:280735685491:web:efcc4278f87a5fcb71c306"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // 🔑 Gunakan path URL sebagai id halaman
+  const pageKey = window.location.pathname.replace(/\//g, "_"); 
+  const likesRef = ref(db, "likes/" + pageKey);
+
+  const likeBtn = document.getElementById("likeBtn");
+  const likeCount = document.getElementById("likes");
+
+  // Update tampilan likes realtime
+  onValue(likesRef, (snapshot) => {
+    if (snapshot.exists()) {
+      likeCount.textContent = snapshot.val();
+    } else {
+      likeCount.textContent = 0;
+    }
+  });
+
+  // Tambah like
+  likeBtn.addEventListener("click", async () => {
+    const snapshot = await get(likesRef);
+    let currentLikes = snapshot.exists() ? snapshot.val() : 0;
+    set(likesRef, currentLikes + 1);
+  });
+</script>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+  // Config Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyDNmtAUCCeD_w0UKdDK_Tigw0cR5Yzkt7A",
+    authDomain: "monbebe2601-blog.firebaseapp.com",
+    databaseURL: "https://monbebe2601-blog-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "monbebe2601-blog",
+    storageBucket: "monbebe2601-blog.firebasestorage.app",
+    messagingSenderId: "280735685491",
+    appId: "1:280735685491:web:efcc4278f87a5fcb71c306"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Tentukan ID halaman dari URL
+  const pageId = window.location.pathname.split("/").pop().replace(".html", "") || "highlight1";
+  const commentsRef = ref(db, "comments/" + pageId);
+
+  // Komentar
+  const commentForm = document.getElementById("commentForm");
+  const commentList = document.getElementById("commentList");
+
+  commentForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const message = document.getElementById("message").value;
+
+    push(commentsRef, {
+      name,
+      message,
+      timestamp: Date.now()
     });
-  </script>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+    commentForm.reset();
+  });
 
-    // Config Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyDNmtAUCCeD_w0UKdDK_Tigw0cR5Yzkt7A",
-      authDomain: "monbebe2601-blog.firebaseapp.com",
-      databaseURL: "https://monbebe2601-blog-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "monbebe2601-blog",
-      storageBucket: "monbebe2601-blog.firebasestorage.app",
-      messagingSenderId: "280735685491",
-      appId: "1:280735685491:web:efcc4278f87a5fcb71c306"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // Komentar
-    const commentForm = document.getElementById("commentForm");
-    const commentList = document.getElementById("commentList");
-    const commentsRef = ref(db, "comments");
-
-    commentForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const message = document.getElementById("message").value;
-
-      push(commentsRef, {
-        name,
-        message,
-        timestamp: Date.now()
-      });
-
-      commentForm.reset();
+  onValue(commentsRef, (snapshot) => {
+    commentList.innerHTML = "";
+    snapshot.forEach((child) => {
+      const data = child.val();
+      const li = document.createElement("li");
+      li.textContent = `${data.name}: ${data.message}`;
+      commentList.appendChild(li);
     });
-
-    onValue(commentsRef, (snapshot) => {
-      commentList.innerHTML = "";
-      snapshot.forEach((child) => {
-        const data = child.val();
-        const li = document.createElement("li");
-        li.textContent = `${data.name}: ${data.message}`;
-        commentList.appendChild(li);
-      });
-    });
-  </script>
+  });
+</script>
 
   <script src="darkmode.js"></script>
 </body>
