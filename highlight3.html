@@ -36,6 +36,48 @@
       font-size: 14px;
     }
 
+    /* Komentar */
+    .comments {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .comments h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+      color: #5a4634;
+    }
+    .comment-form input, .comment-form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .comment-form button {
+      background: #5a4634;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .comment-form button:hover {
+      background: #7a5c3f;
+    }
+    .comment-list {
+      list-style: none;
+      padding: 0;
+    }
+    .comment-list li {
+      padding: 0.8rem;
+      background: #f6f2ec;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+    }
+
     /* Toggle Button */
     .theme-toggle {
       position: fixed;
@@ -485,13 +527,68 @@
   });
 </script>
 
-<script>
-  let likes = 0;
-  function addLike() {
-    likes++;
-    document.getElementById("likes").textContent = likes;
-  }
-</script>
+    // Views counter
+    let views = localStorage.getItem("views") || 0;
+    views++;
+    localStorage.setItem("views", views);
+    document.getElementById("views").textContent = views;
+
+    // Like button
+    let likes = 0;
+    document.getElementById("likeBtn").addEventListener("click", () => {
+      likes++;
+      document.getElementById("likes").textContent = likes;
+    });
+  </script>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+    // Config Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNmtAUCCeD_w0UKdDK_Tigw0cR5Yzkt7A",
+      authDomain: "monbebe2601-blog.firebaseapp.com",
+      databaseURL: "https://monbebe2601-blog-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "monbebe2601-blog",
+      storageBucket: "monbebe2601-blog.firebasestorage.app",
+      messagingSenderId: "280735685491",
+      appId: "1:280735685491:web:efcc4278f87a5fcb71c306"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Komentar
+    const commentForm = document.getElementById("commentForm");
+    const commentList = document.getElementById("commentList");
+    const commentsRef = ref(db, "comments");
+
+    commentForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+
+      push(commentsRef, {
+        name,
+        message,
+        timestamp: Date.now()
+      });
+
+      commentForm.reset();
+    });
+
+    onValue(commentsRef, (snapshot) => {
+      commentList.innerHTML = "";
+      snapshot.forEach((child) => {
+        const data = child.val();
+        const li = document.createElement("li");
+        li.textContent = `${data.name}: ${data.message}`;
+        commentList.appendChild(li);
+      });
+    });
+  </script>
 
 <script src="darkmode.js"></script>
 </body>
